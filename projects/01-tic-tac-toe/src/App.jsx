@@ -7,14 +7,17 @@ export function App() {
   const [casillas, setCasillas] = useState(["", "", "", "", "", "", "", "", ""])
 
   function finPartida(index, casillasActuales) {
-    const posicion = (index) % 3
     const fila = Math.floor(index / 3)
-    console.log(fila)
-    console.log(casillasActuales[fila * 3], casillasActuales[((fila * 3) + 1)], casillasActuales[((fila * 3) + 2)])
-    // if (casillasActuales[(index - 1) % 3] === casillasActuales[index] &&
-    //   casillasActuales[(index + 1) % 3] === casillasActuales[index]) {
-    //   console.log("ganador")
-    // }
+    const columna = index % 3
+    console.log(`(${fila}, ${columna})`)
+
+    if (casillasActuales[fila * 3] === casillasActuales[((fila * 3) + 1)] &&
+      casillasActuales[fila * 3] === casillasActuales[((fila * 3) + 2)]) {
+      console.log("ganador")
+    } else if (casillasActuales[columna] === casillasActuales[columna + 3] &&
+      casillasActuales[columna] === casillasActuales[columna + 6]) {
+      console.log("ganador")
+    }
   }
 
   function jugada(index) {
