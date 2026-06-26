@@ -17,6 +17,16 @@ export function App() {
     } else if (casillasActuales[columna] === casillasActuales[columna + 3] &&
       casillasActuales[columna] === casillasActuales[columna + 6]) {
       console.log("ganador")
+    } else if (fila === columna || Math.abs(fila - columna) === 2) {
+      if (casillasActuales[0] &&
+        casillasActuales[0] === casillasActuales[4] &&
+        casillasActuales[0] === casillasActuales[8]) {
+        console.log("ganador")
+      } else if (casillasActuales[2] &&
+        casillasActuales[2] === casillasActuales[4] &&
+        casillasActuales[2] === casillasActuales[6]) {
+        console.log("ganador")
+      }
     }
   }
 
