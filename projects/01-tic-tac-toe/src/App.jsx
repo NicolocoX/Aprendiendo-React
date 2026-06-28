@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Square } from './components/Square.jsx'
 import { TURNO } from './constants.js'
 import { FinJuego } from './components/FinJuego.jsx'
+import confetti from "canvas-confetti"
 
 export function App() {
   const [turno, setTurno] = useState(TURNO.x)
@@ -15,27 +16,32 @@ export function App() {
     if (casillasActuales[fila * 3] === casillasActuales[((fila * 3) + 1)] &&
       casillasActuales[fila * 3] === casillasActuales[((fila * 3) + 2)]) {
       setGanador(turno)
+      confetti()
     } else if (casillasActuales[columna] === casillasActuales[columna + 3] &&
       casillasActuales[columna] === casillasActuales[columna + 6]) {
       setGanador(turno)
+      confetti()
     } else if (fila === columna || Math.abs(fila - columna) === 2) {
       if (casillasActuales[0] &&
         casillasActuales[0] === casillasActuales[4] &&
         casillasActuales[0] === casillasActuales[8]) {
         setGanador(turno)
+        confetti()
       } else if (casillasActuales[2] &&
         casillasActuales[2] === casillasActuales[4] &&
         casillasActuales[2] === casillasActuales[6]) {
         setGanador(turno)
+        confetti()
       }
-    }
-
-    for (let i = 0; i < casillasActuales.length; i++) {
-      if (!casillasActuales[i]) {
-        return
+    } else {
+      //Detecta si hay empate
+      for (let i = 0; i < casillasActuales.length; i++) {
+        if (!casillasActuales[i]) {
+          return
+        }
       }
+      setGanador("")
     }
-    setGanador("")
   }
 
   function jugada(index) {
