@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Square } from './components/Square.jsx'
 import { TURNO } from './constants.js'
+import { FinJuego } from './components/FinJuego.jsx'
 
 export function App() {
   const [turno, setTurno] = useState(TURNO.x)
   const [casillas, setCasillas] = useState(["", "", "", "", "", "", "", "", ""])
+  const [ganador, setGanador] = useState(null)
 
   function finPartida(index, casillasActuales) {
     const fila = Math.floor(index / 3)
@@ -12,21 +14,28 @@ export function App() {
 
     if (casillasActuales[fila * 3] === casillasActuales[((fila * 3) + 1)] &&
       casillasActuales[fila * 3] === casillasActuales[((fila * 3) + 2)]) {
-      console.log("ganador")
+      setGanador(turno)
     } else if (casillasActuales[columna] === casillasActuales[columna + 3] &&
       casillasActuales[columna] === casillasActuales[columna + 6]) {
-      console.log("ganador")
+      setGanador(turno)
     } else if (fila === columna || Math.abs(fila - columna) === 2) {
       if (casillasActuales[0] &&
         casillasActuales[0] === casillasActuales[4] &&
         casillasActuales[0] === casillasActuales[8]) {
-        console.log("ganador")
+        setGanador(turno)
       } else if (casillasActuales[2] &&
         casillasActuales[2] === casillasActuales[4] &&
         casillasActuales[2] === casillasActuales[6]) {
-        console.log("ganador")
+        setGanador(turno)
       }
     }
+
+    for (let i = 0; i < casillasActuales.length; i++) {
+      if (!casillasActuales[i]) {
+        return
+      }
+    }
+    setGanador("")
   }
 
   function jugada(index) {
@@ -64,6 +73,12 @@ export function App() {
       </section>
       <span>Es el turno de {turno}</span>
       <button onClick={reiniciar}>Reiniciar</button>
+
+      {
+        ganador !== null && (
+          <FinJuego ganador={ganador}></FinJuego>
+        )
+      }
     </main>
   )
 }
