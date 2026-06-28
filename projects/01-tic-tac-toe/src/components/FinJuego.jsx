@@ -1,10 +1,7 @@
 import "./../index.css"
 import { Square } from "./Square"
 
-export const FinJuego = ({ ganador }) => {
-  function reiniciar() {
-    console.log("reinicio")
-  }
+export const FinJuego = ({ ganador, funReinicio }) => {
 
   return (
     <section className="winner">
@@ -15,8 +12,7 @@ export const FinJuego = ({ ganador }) => {
         {
           ganador && (<Square>{ganador}</Square>)
         }
-
-        <button onClick={reiniciar}>Volver a empezar</button>
+        <button onClick={funReinicio}>Volver a empezar</button>
       </div>
     </section>
   )

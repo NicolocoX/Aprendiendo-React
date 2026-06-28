@@ -5,7 +5,7 @@ import { FinJuego } from './components/FinJuego.jsx'
 
 export function App() {
   const [turno, setTurno] = useState(TURNO.x)
-  const [casillas, setCasillas] = useState(["", "", "", "", "", "", "", "", ""])
+  const [casillas, setCasillas] = useState(Array(9).fill(null))
   const [ganador, setGanador] = useState(null)
 
   function finPartida(index, casillasActuales) {
@@ -58,7 +58,9 @@ export function App() {
   }
 
   function reiniciar() {
-    setCasillas(["", "", "", "", "", "", "", "", ""])
+    setCasillas(Array(9).fill(null))
+    setTurno(TURNO.x)
+    setGanador(null)
   }
 
   return (
@@ -76,7 +78,7 @@ export function App() {
 
       {
         ganador !== null && (
-          <FinJuego ganador={ganador}></FinJuego>
+          <FinJuego ganador={ganador} funReinicio={reiniciar}></FinJuego>
         )
       }
     </main>
