@@ -9,7 +9,6 @@ export function App() {
   function finPartida(index, casillasActuales) {
     const fila = Math.floor(index / 3)
     const columna = index % 3
-    console.log(`(${fila}, ${columna})`)
 
     if (casillasActuales[fila * 3] === casillasActuales[((fila * 3) + 1)] &&
       casillasActuales[fila * 3] === casillasActuales[((fila * 3) + 2)]) {
@@ -32,6 +31,11 @@ export function App() {
 
   function jugada(index) {
     const casillasAux = [...casillas]
+
+    if (casillasAux[index]) {
+      return
+    }
+
     casillasAux[index] = turno
     setCasillas(casillasAux)
 
