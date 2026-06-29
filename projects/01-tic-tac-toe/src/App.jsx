@@ -72,6 +72,9 @@ export function App() {
     setCasillas(Array(9).fill(null))
     setTurno(TURNO.x)
     setGanador(null)
+
+    window.localStorage.removeItem("casillas")
+    window.localStorage.removeItem("turno")
   }
 
   return (
