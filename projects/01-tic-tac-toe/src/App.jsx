@@ -5,8 +5,14 @@ import { FinJuego } from './components/FinJuego.jsx'
 import confetti from "canvas-confetti"
 
 export function App() {
-  const [turno, setTurno] = useState(TURNO.x)
-  const [casillas, setCasillas] = useState(Array(9).fill(null))
+  const [turno, setTurno] = useState(() => {
+    const turnoGuardado = window.localStorage.getItem("turno")
+    return turnoGuardado ?? TURNO.x
+  })
+  const [casillas, setCasillas] = useState(() => {
+    const casillasGuardadas = window.localStorage.getItem("casillas")
+    return casillasGuardadas ? JSON.parse(casillasGuardadas) : Array(9).fill(null)
+  })
   const [ganador, setGanador] = useState(null)
 
   function finPartida(index, casillasActuales) {
@@ -45,22 +51,21 @@ export function App() {
   }
 
   function jugada(index) {
-    const casillasAux = [...casillas]
+    const nuevoCasillas = [...casillas]
 
-    if (casillasAux[index]) {
-      return
-    }
+    if (nuevoCasillas[index]) return
 
-    casillasAux[index] = turno
-    setCasillas(casillasAux)
+    nuevoCasillas[index] = turno
+    setCasillas(nuevoCasillas)
 
-    finPartida(index, casillasAux)
+    finPartida(index, nuevoCasillas)
 
-    if (turno === "X") {
-      setTurno(TURNO.o)
-    } else {
-      setTurno(TURNO.x)
-    }
+    const nuevoTurno = turno === TURNO.x ? TURNO.o : TURNO.x
+    setTurno(nuevoTurno)
+
+    window.localStorage.setItem("casillas", JSON.stringify(nuevoCasillas))
+    console.log(nuevoTurno)
+    window.localStorage.setItem("turno", nuevoTurno)
   }
 
   function reiniciar() {
