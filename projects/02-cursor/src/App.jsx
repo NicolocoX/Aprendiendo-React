@@ -6,8 +6,6 @@ export default function App() {
   const [posicion, setPosicion] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
-    console.log("efecto")
-
     const manejarMovimiento = (event) => {
       const { clientX, clientY } = event
       setPosicion({ x: clientX, y: clientY })
@@ -20,6 +18,16 @@ export default function App() {
       window.removeEventListener("pointermove", manejarMovimiento)
     }
   }, [activado])
+
+
+  useEffect(() => {
+    document.body.classList.toggle('no-cursor', activado)
+
+    return () => {
+      document.body.classList.remove('no-cursor')
+    }
+  }, [activado])
+
 
   return (
     <main>
