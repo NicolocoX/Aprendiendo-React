@@ -5,6 +5,8 @@ import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { IS_DEVELOPMEMT } from './config'
 import { useFilters } from './hooks/useFilters'
+import { Cart } from './components/Cart'
+import { CartProvider } from './context/cart'
 
 
 function App() {
@@ -13,11 +15,12 @@ function App() {
   const filteredProducts = filterProducts(products)
 
   return (
-    <>
+    <CartProvider>
       <Header />
+      <Cart />
       <Products products={filteredProducts} />
       {IS_DEVELOPMEMT && <Footer />}
-    </>
+    </CartProvider>
   )
 }
 
